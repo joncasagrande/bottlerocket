@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bottle Rocket</string>
+    <string name="store_logo">Store Logo</string>
+    <string name="phone">Phone: %1$s</string>
+    <string name="address">Address: %1$s</string>
+    <string name="city">City: %1$s</string>
+    <string name="zipcode">Zipcode: %1$s</string>
+    <string name="no_conection">No internet connection, load data from DB</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="phone_call">Phone Call</string>
+    <string name="get_directions">Get Directions</string>
+</resources>
