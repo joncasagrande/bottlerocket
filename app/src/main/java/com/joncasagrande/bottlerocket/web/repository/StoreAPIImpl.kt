@@ -29,7 +29,6 @@ class StoreAPIImpl(val callback: StoreCallback, val storeAPI: StoreAPI,
                     if(disposable != null && disposable!!.isDisposed){
                         disposable!!.dispose()
                     }
-
                 }
 
                 override fun onError(throwable: Throwable) {

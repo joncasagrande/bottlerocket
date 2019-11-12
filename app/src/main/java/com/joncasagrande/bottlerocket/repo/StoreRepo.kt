@@ -25,6 +25,7 @@ class StoreRepo(val storeCallback: StoreCallback ) : KoinComponent {
         }
         val storeApi : StoreAPI  by inject()
         val schedulerProviderImpl: SchedulerProviderImpl  by inject()
+
         val storeImpl = StoreAPIImpl(storeCallback,storeApi,schedulerProviderImpl)
         storeImpl.getStore()
     }
