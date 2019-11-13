@@ -38,8 +38,4 @@ class MainActivityViewModel: ViewModel() {
             errorMessage.setValue(context.getString(R.string.no_conection))
         }
     }
-
-
-
-
 }

@@ -2,17 +2,16 @@ package com.joncasagrande.bottlerocket.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
-import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.joncasagrande.bottlerocket.EXTRA_STORE
-import com.joncasagrande.bottlerocket.R
+import com.joncasagrande.bottlerocket.*
 import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.ui.StoreActivity
 import kotlinx.android.synthetic.main.item_store.view.*
@@ -20,7 +19,7 @@ import java.util.*
 
 class StoreRecyclerView : RecyclerView.Adapter<StoreRecyclerView.StoreViewHolder>() {
 
-    private var data: List<Store> = ArrayList()
+    private var data: MutableList<Store> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreViewHolder {
         return StoreViewHolder(
@@ -34,10 +33,39 @@ class StoreRecyclerView : RecyclerView.Adapter<StoreRecyclerView.StoreViewHolder
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) =
         holder.bind(data[position])
 
-    fun swapData(data: List<Store>) {
-        this.data = data
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: StoreViewHolder, position: Int, payloads: MutableList<Any>) {
+        if(payloads.isEmpty()){
+            onBindViewHolder(holder,position)
+        }else{
+            val bundle: Bundle = payloads[0] as Bundle
+            Log.d("StoreRecyclerView", "has bundle ${bundle.size()}")
+
+            if(bundle[NAME] != null){
+                holder.itemView.addressTV.text = holder.itemView.context.getString(R.string.address,data[position].address)
+            }
+            if(bundle[CITY] != null){
+                holder.itemView.cityTv.text = data[position].city
+            }
+            if(bundle[PHONE] != null){
+                holder.itemView.phoneTV.text = holder.itemView.context.getString(R.string.phone,data[position].phone)
+            }
+            if(bundle[PICTURE] != null){
+                Glide.with(holder.itemView.context).load(data[position].logo).fitCenter().into(holder.itemView.imageView)
+            }
+        }
     }
+
+    fun swapData(contacts: List<Store>) {
+        val diffCallback = StoreDiffUtils(this.data, contacts)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+
+        data.clear()
+        data.addAll(contacts)
+
+        diffResult.dispatchUpdatesTo(this)
+    }
+
 
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("StringFormatInvalid")

@@ -31,6 +31,9 @@ ext {
     koin_version = '2.0.1'
     roomVersion = '2.2.1'
     coroutine_version = '1.0.0'
+    mockito_version = '3.0.0'
+    robolectric_version = '4.3'
+    mockwebserver_version = "4.0.0"
 }
 
 
@@ -87,4 +90,14 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
     implementation 'com.google.android.material:material:1.0.0'
+
+
+    // Test Frameworks
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
+    testImplementation "com.squareup.okhttp3:logging-interceptor:$mockwebserver_version"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
