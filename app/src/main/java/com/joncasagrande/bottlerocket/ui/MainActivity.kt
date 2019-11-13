@@ -12,6 +12,11 @@ import com.joncasagrande.bottlerocket.viewModel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.KoinComponent
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+
+
 
 
 
@@ -24,11 +29,15 @@ class MainActivity : AppCompatActivity(), KoinComponent{
         setContentView(com.joncasagrande.bottlerocket.R.layout.activity_main)
         viewModel = getViewModel()
 
-
+        val layoutManager = LinearLayoutManager(this)
         storeAdapter = StoreRecyclerView()
         storeRV.adapter =  storeAdapter
-        storeRV.setLayoutManager(LinearLayoutManager(this))
-
+        storeRV.setLayoutManager(layoutManager)
+        val dividerItemDecoration = DividerItemDecoration(
+            storeRV.getContext(),
+            layoutManager.getOrientation()
+        )
+        storeRV.addItemDecoration(dividerItemDecoration)
 
         loadStore()
 

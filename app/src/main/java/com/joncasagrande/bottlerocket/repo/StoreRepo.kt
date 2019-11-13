@@ -11,7 +11,10 @@ import kotlin.concurrent.thread
 
 class StoreRepo(val storeCallback: StoreCallback ) : KoinComponent {
 
+
     fun loadStoreFromAPI(){
+        val storeApi : StoreAPI  by inject()
+        val schedulerProviderImpl  = SchedulerProviderImpl()
         val storeCallback = object : StoreCallback{
             override fun onSuccess(stores: List<Store>) {
                 insertListStore(stores)
@@ -23,8 +26,7 @@ class StoreRepo(val storeCallback: StoreCallback ) : KoinComponent {
                 loadStoreFromDB()
             }
         }
-        val storeApi : StoreAPI  by inject()
-        val schedulerProviderImpl: SchedulerProviderImpl  by inject()
+
 
         val storeImpl = StoreAPIImpl(storeCallback,storeApi,schedulerProviderImpl)
         storeImpl.getStore()

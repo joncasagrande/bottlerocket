@@ -41,6 +41,9 @@ class StoreRecyclerView : RecyclerView.Adapter<StoreRecyclerView.StoreViewHolder
             Log.d("StoreRecyclerView", "has bundle ${bundle.size()}")
 
             if(bundle[NAME] != null){
+                holder.itemView.nameTV.text = data[position].name
+            }
+            if(bundle[ADDRESS] != null){
                 holder.itemView.addressTV.text = holder.itemView.context.getString(R.string.address,data[position].address)
             }
             if(bundle[CITY] != null){
@@ -71,6 +74,7 @@ class StoreRecyclerView : RecyclerView.Adapter<StoreRecyclerView.StoreViewHolder
         @SuppressLint("StringFormatInvalid")
         fun bind(item: Store) = with(itemView) {
 
+            nameTV.text = item.name
             addressTV.text = context.getString(R.string.address,item.address)
             cityTv.text =  item.city
             phoneTV.text = context.getString(R.string.phone,item.phone)

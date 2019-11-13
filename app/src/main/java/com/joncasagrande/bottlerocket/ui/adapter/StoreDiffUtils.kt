@@ -2,10 +2,7 @@ package com.joncasagrande.bottlerocket.ui.adapter
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
-import com.joncasagrande.bottlerocket.CITY
-import com.joncasagrande.bottlerocket.NAME
-import com.joncasagrande.bottlerocket.PHONE
-import com.joncasagrande.bottlerocket.PICTURE
+import com.joncasagrande.bottlerocket.*
 import com.joncasagrande.bottlerocket.model.Store
 
 class StoreDiffUtils(val oldList: List<Store>, val newList: List<Store>) : DiffUtil.Callback(){
@@ -37,6 +34,10 @@ class StoreDiffUtils(val oldList: List<Store>, val newList: List<Store>) : DiffU
 
         if(newStore.name != oldStore.name){
             bundle.putString(NAME, newStore.name)
+        }
+
+        if(newStore.address != oldStore.address){
+            bundle.putString(ADDRESS, newStore.name)
         }
 
         if(newStore.city != oldStore.city){
