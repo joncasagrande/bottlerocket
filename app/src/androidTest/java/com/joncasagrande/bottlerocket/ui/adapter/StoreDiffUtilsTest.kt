@@ -1,16 +1,15 @@
 package com.joncasagrande.bottlerocket.ui.adapter
 
+import org.junit.Assert.*
 import android.os.Bundle
 import com.joncasagrande.bottlerocket.CITY
 import com.joncasagrande.bottlerocket.NAME
 import com.joncasagrande.bottlerocket.PHONE
 import com.joncasagrande.bottlerocket.PICTURE
 import com.joncasagrande.bottlerocket.model.Store
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-import org.junit.Assert.*
 
 class StoreDiffUtilsTest {
 
@@ -60,26 +59,26 @@ class StoreDiffUtilsTest {
     @Test
     fun getChangePayloadName() {
         val bundle = storeDiffUtils.getChangePayload(1,2) as Bundle
-        Assert.assertNotNull(bundle.getString(NAME))
+        assertNotNull(bundle.getString(NAME))
     }
     @Test
     fun getChangePayloadPhone() {
 
         val bundle = storeDiffUtils.getChangePayload(1,3)as Bundle
-        Assert.assertNotNull(bundle.getString(PHONE))
+        assertNotNull(bundle.getString(PHONE))
     }
 
     @Test
     fun getChangePayloadCity() {
 
         val bundle = storeDiffUtils.getChangePayload(1,3)as Bundle
-        Assert.assertNotNull(bundle.getString(CITY))
+        assertNotNull(bundle.getString(CITY))
     }
 
     @Test
     fun getChangePayloadPic() {
 
         val bundle = storeDiffUtils.getChangePayload(1,4) as Bundle
-        Assert.assertNotNull(bundle.getBoolean(PICTURE))
+        assertNotNull(bundle.getBoolean(PICTURE))
     }
 }

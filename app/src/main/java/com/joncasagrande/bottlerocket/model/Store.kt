@@ -44,6 +44,40 @@ class Store(@PrimaryKey
         return 0
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Store
+
+        if (id != other.id) return false
+        if (address != other.address) return false
+        if (city != other.city) return false
+        if (name != other.name) return false
+        if (zipcode != other.zipcode) return false
+        if (logo != other.logo) return false
+        if (phone != other.phone) return false
+        if (state != other.state) return false
+        if (latitude != other.latitude) return false
+        if (longitude != other.longitude) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + address.hashCode()
+        result = 31 * result + city.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + zipcode.hashCode()
+        result = 31 * result + logo.hashCode()
+        result = 31 * result + phone.hashCode()
+        result = 31 * result + state.hashCode()
+        result = 31 * result + latitude.hashCode()
+        result = 31 * result + longitude.hashCode()
+        return result
+    }
+
 
     companion object CREATOR : Parcelable.Creator<Store> {
         override fun createFromParcel(parcel: Parcel): Store {
@@ -54,6 +88,7 @@ class Store(@PrimaryKey
             return arrayOfNulls(size)
         }
     }
+
 }
 
 

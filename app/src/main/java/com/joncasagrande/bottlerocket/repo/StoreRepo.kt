@@ -31,6 +31,7 @@ class StoreRepo(val storeCallback: StoreCallback ) : KoinComponent {
         val storeImpl = StoreAPIImpl(storeCallback,storeApi,schedulerProviderImpl)
         storeImpl.getStore()
     }
+
     private fun insertListStore(stores : List<Store>){
         thread {
             val storeDB = BottleRocketDB.INSTANCE!!.storeDao()

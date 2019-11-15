@@ -3,6 +3,7 @@ package com.joncasagrande.bottlerocket.viewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.joncasagrande.bottlerocket.model.Store
+import com.joncasagrande.bottlerocket.util.Utils
 import org.junit.Before
 import org.junit.Test
 
@@ -34,10 +35,7 @@ class MainActivityViewModelTest {
     @Test
     fun verifyChangeListStore() {
         //given
-        val store= Mockito.mock(Store::class.java)
-        val store1= Mockito.mock(Store::class.java)
-        val store2= Mockito.mock(Store::class.java)
-         val listStoreMocked = mutableListOf(store,store1,store2)
+            val listStoreMocked = Utils.getListStore()
         //when
         mainActivityViewModel.listStore.value = listStoreMocked
 
