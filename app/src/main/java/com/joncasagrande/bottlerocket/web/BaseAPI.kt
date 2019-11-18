@@ -25,7 +25,6 @@ class BaseAPI(val baseHttp : BaseHttp,val serverAddress: String) {
 
 
     fun createStoreAPI(serviceClass: Class<StoreAPI>): StoreAPI {
-
         builder.baseUrl(serverAddress)
 
         val retrofit = builder.client(okHttpClient!!).build()

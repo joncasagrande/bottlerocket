@@ -16,10 +16,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 
-
-
-
-
 class MainActivity : AppCompatActivity(), KoinComponent{
 
     lateinit var storeAdapter : StoreRecyclerView

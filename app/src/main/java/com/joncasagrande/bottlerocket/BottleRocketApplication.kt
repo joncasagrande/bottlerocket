@@ -15,6 +15,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.NetworkInfo
+import com.joncasagrande.bottlerocket.module.schedulerModule
 
 
 class BottleRocketApplication : Application() {
@@ -23,7 +24,7 @@ class BottleRocketApplication : Application() {
         startKoin{
             androidLogger()
             androidContext(this@BottleRocketApplication)
-            modules(listOf(viewModelModule, webModule))
+            modules(listOf(viewModelModule, webModule, schedulerModule))
         }
 
         BottleRocketDB.createAppDataBase(this)
