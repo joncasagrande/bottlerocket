@@ -1,30 +1,23 @@
 package com.joncasagrande.bottlerocket.repo
 
 import com.joncasagrande.bottlerocket.dao.StoreDao
+import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.utils.SchedulerProviderImpl
 import com.joncasagrande.bottlerocket.web.api.StoreAPI
 import com.joncasagrande.bottlerocket.web.repository.StoreAPIImpl
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.concurrent.thread
 
-class StoreRepo(val storeCallback: StoreCallback ) : KoinComponent {
+class StoreRepo(val storeImpl : StoreAPIImpl,val storeDB : StoreDao ) : KoinComponent {
 
-    fun loadStoreFromAPI(storeCallback: StoreCallback,storeApi : StoreAPI,schedulerProviderImpl : SchedulerProviderImpl){
+    fun loadStoreFromAPI()= storeImpl.getStore()
 
+    fun loadStoreFromDB()= storeDB.getStores()
 
-
-        val storeImpl = StoreAPIImpl(storeCallback,storeApi,schedulerProviderImpl)
-        storeImpl.getStore()
-    }
-
-
-
-
-    fun loadStoreFromDB(storeDB : StoreDao){
+    fun saveStores(stores: List<Store>){
         thread {
-            val stores = storeDB.getStores()
-            storeCallback.onSuccess(stores)
+            storeDB.insertStoreList(stores)
         }
-
     }
 }

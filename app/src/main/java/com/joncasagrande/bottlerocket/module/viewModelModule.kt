@@ -1,4 +1,4 @@
-package com.jonathan.hostelbedcart.module
+package com.joncasagrande.bottlerocket.module
 
 import com.joncasagrande.bottlerocket.viewModel.MainActivityViewModel
 import org.koin.dsl.module

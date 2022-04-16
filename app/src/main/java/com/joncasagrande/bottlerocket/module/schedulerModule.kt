@@ -5,5 +5,4 @@ import org.koin.dsl.module
 
 val schedulerModule = module {
     single { SchedulerProviderImpl() }
-
 }

@@ -1,22 +1,14 @@
 package com.joncasagrande.bottlerocket
 
 import android.app.Application
-import android.content.Context
-import com.jonathan.hostelbedcart.module.viewModelModule
-import com.jonathan.hostelbedcart.module.webModule
+import com.joncasagrande.bottlerocket.module.viewModelModule
+import com.jonathan.hostelbedcart.module.CoreModule
 import com.joncasagrande.bottlerocket.dao.BottleRocketDB
+import com.joncasagrande.bottlerocket.module.dataBaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import android.content.Context.CONNECTIVITY_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.net.ConnectivityManager
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.net.NetworkInfo
 import com.joncasagrande.bottlerocket.module.schedulerModule
-
 
 class BottleRocketApplication : Application() {
     override fun onCreate() {
@@ -24,17 +16,9 @@ class BottleRocketApplication : Application() {
         startKoin{
             androidLogger()
             androidContext(this@BottleRocketApplication)
-            modules(listOf(viewModelModule, webModule, schedulerModule))
+            modules(listOf(viewModelModule, CoreModule, schedulerModule, dataBaseModule))
         }
 
         BottleRocketDB.createAppDataBase(this)
-    }
-
-    companion object{
-        fun hasConnection(context : Context): Boolean{
-            val cm = getSystemService(context,ConnectivityManager::class.java) as ConnectivityManager
-            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-            return activeNetwork?.isConnectedOrConnecting?: false
-        }
     }
 }
