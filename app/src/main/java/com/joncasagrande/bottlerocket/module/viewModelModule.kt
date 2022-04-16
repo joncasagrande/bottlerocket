@@ -2,8 +2,8 @@ package com.joncasagrande.bottlerocket.module
 
 import com.joncasagrande.bottlerocket.viewModel.MainActivityViewModel
 import org.koin.dsl.module
+import org.koin.android.viewmodel.dsl.viewModel
 
 val viewModelModule = module {
-    single { MainActivityViewModel() }
-
+    viewModel { MainActivityViewModel(get(), get()) }
 }

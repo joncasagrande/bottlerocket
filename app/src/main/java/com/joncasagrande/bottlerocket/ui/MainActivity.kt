@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.core.KoinComponent
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
+import com.joncasagrande.bottlerocket.R
 
 class MainActivity : AppCompatActivity(), KoinComponent{
 
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity(), KoinComponent{
     lateinit var viewModel: MainActivityViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.joncasagrande.bottlerocket.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         viewModel = getViewModel()
 
         val layoutManager = LinearLayoutManager(this)
@@ -45,15 +44,15 @@ class MainActivity : AppCompatActivity(), KoinComponent{
         })
 
         viewModel.errorMessage.observe(this@MainActivity,
-            Observer<String>{
-               Toast.makeText(this@MainActivity,it,Toast.LENGTH_SHORT).show()
+            Observer<Boolean>{
+               Toast.makeText(this@MainActivity,R.string.no_conection,Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.GONE
             })
 
     }
 
     private fun loadStore(){
-        viewModel.loadStore(this)
+        viewModel.loadStore()
         progressBar.visibility = View.VISIBLE
     }
 }

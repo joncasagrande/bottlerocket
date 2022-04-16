@@ -12,8 +12,6 @@ interface StoreDao {
     @Query("SELECT * from Store")
     fun getStores() : List<Store>
 
-    // allowing the insert of the same word multiple times by passing a
-    // conflict resolution strategy
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(store: Store)
 

@@ -3,28 +3,24 @@ package com.joncasagrande.bottlerocket.viewModel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.joncasagrande.bottlerocket.BottleRocketApplication
-import com.joncasagrande.bottlerocket.R
 import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.repo.StoreRepo
 import com.joncasagrande.bottlerocket.utils.SchedulerProvider
-import com.joncasagrande.bottlerocket.utils.SchedulerProviderImpl
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class MainActivityViewModel() : BaseViewModel(), KoinComponent {
-
-    private val schedulerProvider: SchedulerProviderImpl by inject()
-    private val storeRepo: StoreRepo by inject()
+class MainActivityViewModel(
+    private val schedulerProvider: SchedulerProvider,
+    private val storeRepo: StoreRepo
+) : BaseViewModel(), KoinComponent {
 
     private val _stores = MutableLiveData<List<Store>>()
     val listStore: LiveData<List<Store>> by lazy {
         _stores
     }
 
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
+    val errorMessage: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun loadStore(context: Context) {
+    fun loadStore() {
         disposables.add(
             storeRepo.loadStoreFromAPI()
                 .subscribeOn(schedulerProvider.io())
@@ -34,7 +30,7 @@ class MainActivityViewModel() : BaseViewModel(), KoinComponent {
                     storeRepo.saveStores(it.stores)
                 }, {
                     loadStoreFromDataBase()
-                    errorMessage.value = context.getString(R.string.no_conection)
+                    errorMessage.value = true
                 })
         )
     }
