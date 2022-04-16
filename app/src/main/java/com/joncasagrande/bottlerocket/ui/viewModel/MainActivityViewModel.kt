@@ -1,10 +1,10 @@
-package com.joncasagrande.bottlerocket.viewModel
+package com.joncasagrande.bottlerocket.ui.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.repo.StoreRepo
+import com.joncasagrande.bottlerocket.ui.model.UiState
 import com.joncasagrande.bottlerocket.utils.SchedulerProvider
 import org.koin.core.KoinComponent
 
@@ -13,8 +13,8 @@ class MainActivityViewModel(
     private val storeRepo: StoreRepo
 ) : BaseViewModel(), KoinComponent {
 
-    private val _stores = MutableLiveData<List<Store>>()
-    val listStore: LiveData<List<Store>> by lazy {
+    private val _stores = MutableLiveData<UiState<List<Store>>>()
+    val listStore: LiveData<UiState<List<Store>>> by lazy {
         _stores
     }
 
@@ -25,8 +25,11 @@ class MainActivityViewModel(
             storeRepo.loadStoreFromAPI()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.main())
+                .doOnSubscribe {
+                    _stores.value = UiState.Loading
+                }
                 .subscribe({
-                    _stores.value = it.stores
+                    _stores.value = UiState.Display(it.stores)
                     storeRepo.saveStores(it.stores)
                 }, {
                     loadStoreFromDataBase()
@@ -36,6 +39,6 @@ class MainActivityViewModel(
     }
 
     private fun loadStoreFromDataBase(){
-        _stores.value = storeRepo.loadStoreFromDB()
+        _stores.value = UiState.Display(storeRepo.loadStoreFromDB())
     }
 }

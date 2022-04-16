@@ -1,10 +1,10 @@
-package com.joncasagrande.bottlerocket.viewModel
+package com.joncasagrande.bottlerocket.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel : ViewModel() {
-    val disposables = CompositeDisposable();
+    val disposables = CompositeDisposable()
 
     @Override
     override fun onCleared() {
