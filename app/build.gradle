@@ -7,7 +7,6 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.joncasagrande.bottlerocket"
         minSdkVersion 24
@@ -24,6 +23,10 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
