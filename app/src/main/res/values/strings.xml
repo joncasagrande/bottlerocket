@@ -10,6 +10,7 @@
     <string name="phone_call">Phone Call</string>
     <string name="get_directions">Get Directions</string>
     <string name="something_went_wrong">Something went wrong. Sorry for the inconvenience! </string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

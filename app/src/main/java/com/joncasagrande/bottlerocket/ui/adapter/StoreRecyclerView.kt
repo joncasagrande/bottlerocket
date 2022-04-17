@@ -12,13 +12,14 @@ import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.ui.adapter.viewHolder.StoreViewHolder
 import kotlinx.android.synthetic.main.item_store.view.*
 
-class StoreRecyclerView : RecyclerView.Adapter<StoreViewHolder>() {
+class StoreRecyclerView(val onClick: (input: Store) -> Unit) : RecyclerView.Adapter<StoreViewHolder>() {
 
     private var data: MutableList<Store> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreViewHolder {
         return StoreViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_store, parent, false)
+                .inflate(R.layout.item_store, parent, false),
+            onClick
         )
     }
 
