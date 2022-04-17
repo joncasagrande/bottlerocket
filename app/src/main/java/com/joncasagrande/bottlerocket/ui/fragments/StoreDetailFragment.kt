@@ -20,10 +20,9 @@ class StoreDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentStoreDetailBinding
 
-    protected val storeExtra by lazy {
-        requireNotNull(requireArguments().getSerializable(EXTRA_STORE) as Store)
-        { "Store must be specified!" }
-    }
+    private val storeExtra: Store
+        get() = requireArguments().getParcelable(EXTRA_STORE) ?: throw IllegalArgumentException()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +39,11 @@ class StoreDetailFragment : Fragment() {
 
     private fun setUi() {
         with(binding) {
-            addressTv.text =
-                getString(R.string.address, storeExtra.address)
+            addressTv.text = getString(R.string.address, storeExtra.address)
             cityTv.text = getString(R.string.city, storeExtra.city)
-            zipcodeTv.text =
-                getString(R.string.zipcode, storeExtra.zipcode)
+            zipcodeTv.text =getString(R.string.zipcode, storeExtra.zipcode)
             nameTV.text = storeExtra.name
+
             Glide.with(requireContext()).load(storeExtra.logo).into(logoIV)
 
             directionBT.setOnClickListener {
@@ -57,7 +55,6 @@ class StoreDetailFragment : Fragment() {
 
         }
     }
-
 
     private fun phoneCall() {
         if (ContextCompat.checkSelfPermission(
@@ -83,7 +80,7 @@ class StoreDetailFragment : Fragment() {
         @JvmStatic
         fun newInstance(storeExtra: Store) =
             StoreDetailFragment().apply {
-                bundleOf(
+                arguments = bundleOf(
                     EXTRA_STORE to storeExtra
                 )
             }
