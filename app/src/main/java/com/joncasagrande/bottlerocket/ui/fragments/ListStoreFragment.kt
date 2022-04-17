@@ -78,8 +78,18 @@ class ListStoreFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
                     }
                     is UiState.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is UiState.Error -> binding.progressBar.visibility = View.GONE
-                    is UiState.Empty -> binding.progressBar.visibility = View.GONE
+                    is UiState.Error -> {
+                        binding.storeRV.visibility = View.GONE
+                        binding.noResultsImageView.visibility = View.VISIBLE
+                        binding.noResultsTextView.text = getString(R.string.no_conection)
+                        binding.progressBar.visibility = View.GONE
+                    }
+                    is UiState.Empty -> {
+                        binding.storeRV.visibility = View.GONE
+                        binding.noResultsImageView.visibility = View.VISIBLE
+                        binding.noResultsTextView.text = getString(R.string.no_results)
+                        binding.progressBar.visibility = View.GONE
+                    }
                 }
             })
 
