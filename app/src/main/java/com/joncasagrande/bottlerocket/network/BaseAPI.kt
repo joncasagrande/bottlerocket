@@ -1,10 +1,10 @@
-package com.joncasagrande.bottlerocket.web
+package com.joncasagrande.bottlerocket.network
 
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
+import com.joncasagrande.bottlerocket.network.api.StoreAPI
 import okhttp3.OkHttpClient
 import retrofit2.HttpException
 import retrofit2.Retrofit

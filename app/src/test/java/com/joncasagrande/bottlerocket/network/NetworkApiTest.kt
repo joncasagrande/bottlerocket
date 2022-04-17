@@ -1,8 +1,8 @@
-package com.joncasagrande.bottlerocket.web
+package com.joncasagrande.bottlerocket.network
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.joncasagrande.bottlerocket.model.StoreRest
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
+import com.joncasagrande.bottlerocket.network.api.StoreAPI
 import io.reactivex.observers.TestObserver
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

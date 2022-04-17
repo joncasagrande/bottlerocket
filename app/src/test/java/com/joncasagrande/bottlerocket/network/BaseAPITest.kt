@@ -1,6 +1,6 @@
-package com.joncasagrande.bottlerocket.web
+package com.joncasagrande.bottlerocket.network
 
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
+import com.joncasagrande.bottlerocket.network.api.StoreAPI
 import org.junit.Before
 import org.junit.Test
 

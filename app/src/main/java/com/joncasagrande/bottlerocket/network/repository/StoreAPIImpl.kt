@@ -1,6 +1,6 @@
-package com.joncasagrande.bottlerocket.web.repository
+package com.joncasagrande.bottlerocket.network.repository
 
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
+import com.joncasagrande.bottlerocket.network.api.StoreAPI
 import org.koin.core.KoinComponent
 
 class StoreAPIImpl(val storeAPI: StoreAPI) : KoinComponent {

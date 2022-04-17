@@ -1,4 +1,4 @@
-package com.joncasagrande.bottlerocket.web
+package com.joncasagrande.bottlerocket.network
 
 import org.junit.Before
 

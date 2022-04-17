@@ -1,11 +1,10 @@
 package com.jonathan.hostelbedcart.module
 
-import android.app.Application
 import com.joncasagrande.bottlerocket.repo.StoreRepo
-import com.joncasagrande.bottlerocket.web.BaseAPI
-import com.joncasagrande.bottlerocket.web.BaseHttp
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
-import com.joncasagrande.bottlerocket.web.repository.StoreAPIImpl
+import com.joncasagrande.bottlerocket.network.BaseAPI
+import com.joncasagrande.bottlerocket.network.BaseHttp
+import com.joncasagrande.bottlerocket.network.api.StoreAPI
+import com.joncasagrande.bottlerocket.network.repository.StoreAPIImpl
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import java.io.File

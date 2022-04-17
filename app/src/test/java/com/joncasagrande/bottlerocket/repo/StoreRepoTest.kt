@@ -1,16 +1,5 @@
 package com.joncasagrande.bottlerocket.repo
 
-import com.joncasagrande.bottlerocket.dao.StoreDao
-import com.joncasagrande.bottlerocket.model.Store
-import com.joncasagrande.bottlerocket.utils.SchedulerProviderImpl
-import com.joncasagrande.bottlerocket.web.api.StoreAPI
-import org.junit.Before
-import org.junit.Test
-
-import org.junit.Assert.*
-import org.mockito.*
-import org.mockito.Mockito.*
-
 class StoreRepoTest {
 
     /**

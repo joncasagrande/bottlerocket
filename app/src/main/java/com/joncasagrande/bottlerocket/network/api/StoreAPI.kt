@@ -1,4 +1,4 @@
-package com.joncasagrande.bottlerocket.web.api
+package com.joncasagrande.bottlerocket.network.api
 
 import com.joncasagrande.bottlerocket.model.StoreRest
 import io.reactivex.Single
