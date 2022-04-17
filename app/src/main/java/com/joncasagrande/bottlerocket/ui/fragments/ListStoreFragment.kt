@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joncasagrande.bottlerocket.EXTRA_STORE
 import com.joncasagrande.bottlerocket.R
 import com.joncasagrande.bottlerocket.databinding.FragmentListStoreBinding
-import com.joncasagrande.bottlerocket.ui.StoreActivity
 import com.joncasagrande.bottlerocket.ui.adapter.StoreRecyclerView
 import com.joncasagrande.bottlerocket.ui.model.UiState
 import com.joncasagrande.bottlerocket.ui.viewModel.ListStoreViewModel
@@ -48,11 +48,17 @@ class ListStoreFragment : Fragment() {
     private fun setUi() {
         val layoutManager = LinearLayoutManager(binding.storeRV.context)
         storeAdapter = StoreRecyclerView(
-            onClick = {
-                val intent = Intent(requireContext(), StoreActivity::class.java).apply {
-                    putExtra(EXTRA_STORE, it)
+            onClick = { store ->
+                fragmentManager?.let {
+                    it.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left, R.anim.slide_out_left,
+                            R.anim.slide_out_right, R.anim.slide_in_right
+                        )
+                        .replace(R.id.your_placeholder, StoreDetailFragment.newInstance(store))
+                        .addToBackStack(null)
+                        .commit()
                 }
-                ContextCompat.startActivity(requireContext(), intent, null)
             }
         )
         with(binding.storeRV) {
