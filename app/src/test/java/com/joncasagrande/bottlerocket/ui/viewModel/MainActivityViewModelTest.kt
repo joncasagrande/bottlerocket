@@ -6,7 +6,6 @@ import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.repo.StoreRepo
 import com.joncasagrande.bottlerocket.ui.model.UiState
 import com.joncasagrande.bottlerocket.util.Utils
-import com.joncasagrande.bottlerocket.utils.SchedulerProvider
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +16,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class MainActivityViewModelTest {
+class ListStoreViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -26,26 +25,19 @@ class MainActivityViewModelTest {
     private lateinit var listStoreObserver: Observer<UiState<List<Store>>>
 
     @Mock
-    private lateinit var errorMessageObserver: Observer<Boolean>
-
-    @Mock
     private lateinit var repo: StoreRepo
 
-    @Mock
-    private lateinit var schedulerProvider: SchedulerProvider
-
-    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var viewModel: ListStoreViewModel
 
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mainActivityViewModel = MainActivityViewModel(schedulerProvider, repo)
-        mainActivityViewModel.listStore.observeForever(listStoreObserver)
-        mainActivityViewModel.errorMessage.observeForever(errorMessageObserver)
+        viewModel = ListStoreViewModel(repo)
+        viewModel.listStore.observeForever(listStoreObserver)
     }
 
-    @Test
+    /*@Test
     fun verifyChangeListStore() {
         //given
         val listStoreMocked = Utils.getListStore()
@@ -57,23 +49,9 @@ class MainActivityViewModelTest {
         }
 
         //when
-        mainActivityViewModel.loadStore()
+        viewModel.loadStore()
 
         //then
         BDDMockito.then(listStoreObserver).should().onChanged(uiSate)
-    }
-
-    @Test
-    fun verifyChangeErrorMessage() {
-        //given
-        val errorMessage = false
-
-        //when
-        mainActivityViewModel.errorMessage.value = errorMessage
-
-        //then
-        BDDMockito.then(errorMessageObserver).should().onChanged(errorMessage)
-    }
-
-
+    }*/
 }

@@ -8,7 +8,6 @@ import com.joncasagrande.bottlerocket.module.dataBaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import com.joncasagrande.bottlerocket.module.schedulerModule
 
 class BottleRocketApplication : Application() {
     override fun onCreate() {
@@ -16,7 +15,7 @@ class BottleRocketApplication : Application() {
         startKoin{
             androidLogger()
             androidContext(this@BottleRocketApplication)
-            modules(listOf(viewModelModule, CoreModule, schedulerModule, dataBaseModule))
+            modules(listOf(viewModelModule, CoreModule, dataBaseModule))
         }
     }
 }

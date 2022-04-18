@@ -38,7 +38,7 @@ class ListStoreViewModel(
         )
     }
 
-    private fun loadStoreFromDataBase(){
+    private fun loadStoreFromDataBase() {
         _stores.value = UiState.Display(storeRepo.loadStoreFromDB())
     }
 }

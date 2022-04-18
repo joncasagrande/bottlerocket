@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class BaseAPI(val baseHttp: BaseHttp, val serverAddress: String) {
+class BaseAPI(private val baseHttp: BaseHttp, val serverAddress: String) {
     private val builder: Retrofit.Builder
     private var okHttpClient: OkHttpClient? = null
 
