@@ -18,8 +18,6 @@ class ListStoreViewModel(
         _stores
     }
 
-    val errorMessage: MutableLiveData<Boolean> = MutableLiveData()
-
     fun loadStore() {
         disposables.add(
             storeRepo.loadStoreFromAPI()
@@ -33,7 +31,7 @@ class ListStoreViewModel(
                     storeRepo.saveStores(it.stores)
                 }, {
                     loadStoreFromDataBase()
-                    errorMessage.value = true
+                    _stores.value = UiState.Error()
                 })
         )
     }
