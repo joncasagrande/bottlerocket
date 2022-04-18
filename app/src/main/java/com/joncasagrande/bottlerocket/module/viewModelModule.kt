@@ -7,5 +7,5 @@ import org.koin.android.viewmodel.dsl.viewModel
 
 val viewModelModule = module {
     viewModel { MainActivityViewModel() }
-    viewModel { ListStoreViewModel(get(), get()) }
+    viewModel { ListStoreViewModel(get()) }
 }

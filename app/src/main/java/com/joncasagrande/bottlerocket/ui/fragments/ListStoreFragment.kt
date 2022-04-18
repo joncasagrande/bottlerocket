@@ -26,7 +26,7 @@ class ListStoreFragment : Fragment() {
     lateinit var storeAdapter: StoreRecyclerView
     private val viewModel by viewModel<ListStoreViewModel>()
 
-    private lateinit var binding : FragmentListStoreBinding
+    private lateinit var binding: FragmentListStoreBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class ListStoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListStoreBinding.inflate(layoutInflater,container,false)
+        binding = FragmentListStoreBinding.inflate(layoutInflater, container, false)
         setUi()
         setObservers()
         viewModel.loadStore()
@@ -97,12 +97,6 @@ class ListStoreFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
                     }
                 }
-            })
-
-        viewModel.errorMessage.observe(this,
-            Observer<Boolean> {
-                Toast.makeText(requireContext(), R.string.no_conection, Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility = View.GONE
             })
     }
 

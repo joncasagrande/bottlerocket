@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.repo.StoreRepo
 import com.joncasagrande.bottlerocket.ui.model.UiState
-import com.joncasagrande.bottlerocket.utils.SchedulerProvider
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.koin.core.KoinComponent
 
 class ListStoreViewModel(
-    private val schedulerProvider: SchedulerProvider,
     private val storeRepo: StoreRepo
 ) : BaseViewModel(), KoinComponent {
 
@@ -18,13 +18,11 @@ class ListStoreViewModel(
         _stores
     }
 
-    val errorMessage: MutableLiveData<Boolean> = MutableLiveData()
-
     fun loadStore() {
         disposables.add(
             storeRepo.loadStoreFromAPI()
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.main())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     _stores.value = UiState.Loading
                 }
@@ -33,7 +31,7 @@ class ListStoreViewModel(
                     storeRepo.saveStores(it.stores)
                 }, {
                     loadStoreFromDataBase()
-                    errorMessage.value = true
+                    _stores.value = UiState.Error()
                 })
         )
     }
