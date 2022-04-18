@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class BaseAPI(val baseHttp: BaseHttp, val serverAddress: String) {
     private val builder: Retrofit.Builder
-    internal var okHttpClient: OkHttpClient? = null
+    private var okHttpClient: OkHttpClient? = null
 
     init {
         okHttpClient = baseHttp.httpClient
