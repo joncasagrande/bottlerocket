@@ -8,19 +8,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.joncasagrande.bottlerocket.*
+import com.joncasagrande.bottlerocket.databinding.ItemStoreBinding
 import com.joncasagrande.bottlerocket.model.Store
 import com.joncasagrande.bottlerocket.ui.adapter.viewHolder.StoreViewHolder
-import kotlinx.android.synthetic.main.item_store.view.*
 
 class StoreRecyclerView(val onClick: (input: Store) -> Unit) : RecyclerView.Adapter<StoreViewHolder>() {
 
     private var data: MutableList<Store> = ArrayList()
+    private lateinit var bindingViewHolder : ItemStoreBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreViewHolder {
-        return StoreViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_store, parent, false),
-            onClick
-        )
+        bindingViewHolder = ItemStoreBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return  StoreViewHolder(bindingViewHolder.root, onClick)
     }
 
     override fun getItemCount() = data.size
@@ -36,19 +34,19 @@ class StoreRecyclerView(val onClick: (input: Store) -> Unit) : RecyclerView.Adap
             Log.d("StoreRecyclerView", "has bundle ${bundle.size()}")
 
             if(bundle[NAME] != null){
-                holder.itemView.nameTV.text = data[position].name
+                bindingViewHolder.nameTV.text = data[position].name
             }
             if(bundle[ADDRESS] != null){
-                holder.itemView.addressTV.text = holder.itemView.context.getString(R.string.address,data[position].address)
+                bindingViewHolder.addressTV.text = holder.itemView.context.getString(R.string.address,data[position].address)
             }
             if(bundle[CITY] != null){
-                holder.itemView.cityTv.text = data[position].city
+                bindingViewHolder.cityTv.text = data[position].city
             }
             if(bundle[PHONE] != null){
-                holder.itemView.phoneTV.text = holder.itemView.context.getString(R.string.phone,data[position].phone)
+                bindingViewHolder.phoneTV.text = holder.itemView.context.getString(R.string.phone,data[position].phone)
             }
             if(bundle[PICTURE] != null){
-                Glide.with(holder.itemView.context).load(data[position].logo).fitCenter().into(holder.itemView.imageView)
+                Glide.with(holder.itemView.context).load(data[position].logo).fitCenter().into(bindingViewHolder.imageView)
             }
         }
     }

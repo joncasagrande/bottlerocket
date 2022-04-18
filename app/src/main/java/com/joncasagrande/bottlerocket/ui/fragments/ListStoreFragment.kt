@@ -1,18 +1,14 @@
 package com.joncasagrande.bottlerocket.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.joncasagrande.bottlerocket.EXTRA_STORE
 import com.joncasagrande.bottlerocket.R
 import com.joncasagrande.bottlerocket.databinding.FragmentListStoreBinding
 import com.joncasagrande.bottlerocket.ui.adapter.StoreRecyclerView
@@ -26,7 +22,7 @@ class ListStoreFragment : Fragment() {
     lateinit var storeAdapter: StoreRecyclerView
     private val viewModel by viewModel<ListStoreViewModel>()
 
-    private lateinit var binding : FragmentListStoreBinding
+    private lateinit var binding: FragmentListStoreBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +33,7 @@ class ListStoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListStoreBinding.inflate(layoutInflater,container,false)
+        binding = FragmentListStoreBinding.inflate(layoutInflater, container, false)
         setUi()
         setObservers()
         viewModel.loadStore()
@@ -76,7 +72,7 @@ class ListStoreFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.listStore.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
                 when (val uiState = it) {
                     is UiState.Display -> {
@@ -99,7 +95,7 @@ class ListStoreFragment : Fragment() {
                 }
             })
 
-        viewModel.errorMessage.observe(this,
+        viewModel.errorMessage.observe(viewLifecycleOwner,
             Observer<Boolean> {
                 Toast.makeText(requireContext(), R.string.no_conection, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.GONE

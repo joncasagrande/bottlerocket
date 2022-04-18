@@ -18,7 +18,5 @@ class BottleRocketApplication : Application() {
             androidContext(this@BottleRocketApplication)
             modules(listOf(viewModelModule, CoreModule, schedulerModule, dataBaseModule))
         }
-
-        BottleRocketDB.createAppDataBase(this)
     }
 }
