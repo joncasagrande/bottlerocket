@@ -14,13 +14,10 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         // Begin the transaction
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.your_placeholder, ListStoreFragment.newInstance())
         ft.commit()
 
     }
-
-
 }

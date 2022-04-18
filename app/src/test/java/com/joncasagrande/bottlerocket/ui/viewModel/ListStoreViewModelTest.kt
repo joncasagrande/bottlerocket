@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.joncasagrande.bottlerocket.model.Store
+import com.joncasagrande.bottlerocket.model.StoreRest
 import com.joncasagrande.bottlerocket.repo.StoreRepo
 import com.joncasagrande.bottlerocket.ui.model.UiState
 import com.joncasagrande.bottlerocket.util.RxImmediateSchedulerRule
@@ -17,11 +18,13 @@ import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(JUnit4::class)
 class ListStoreViewModelTest : TestCase(){
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -43,7 +46,7 @@ class ListStoreViewModelTest : TestCase(){
 
     @Before
     public override fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         viewModel = ListStoreViewModel( repo)
         viewModel.listStore.observeForever(listStoreObserver)
     }
@@ -54,44 +57,40 @@ class ListStoreViewModelTest : TestCase(){
         val listStoreMocked = Utils.getListStore()
         val uiState = UiState.Display(listStoreMocked)
         val delayer = PublishSubject.create<UiState.Loading>()
-        Mockito.`when`(repo.loadStoreFromAPI()).then {
+        `when`(repo.loadStoreFromAPI()).then {
             Single.just(
-                uiState
+                StoreRest(listStoreMocked)
             ).delaySubscription(delayer)
         }
 
         //when
         viewModel.loadStore()
 
-
         //then
-        assertEquals((viewModel.listStore.value!! as UiState.Loading), UiState.Loading)
-
+        assertEquals((viewModel.listStore.value as UiState.Loading), UiState.Loading)
         delayer.onComplete()
-
-        assertEquals((viewModel.listStore.value!! as UiState.Display).data, uiState)
+        assertEquals((viewModel.listStore.value as UiState.Display), uiState)
     }
 
     @Test
     fun verifyChangeListStoreWhenHasNoConneciton() {
         //given
         val listStoreMocked = Utils.getListStore()
-        val uiState = UiState.Display(listStoreMocked)
         val delayer = PublishSubject.create<UiState.Loading>()
-        Mockito.`when`(repo.loadStoreFromAPI()).then { Throwable() }
-        Mockito.`when`(repo.loadStoreFromDB()).then { Single.just(uiState) }
+        `when`(repo.loadStoreFromAPI()).then {
+            Single.error<Throwable>(
+                Throwable()
+            ).delaySubscription(delayer)
+        }
+        `when`(repo.loadStoreFromDB()).then { listStoreMocked }
 
         //when
         viewModel.loadStore()
 
-
         //then
-        assertEquals((viewModel.listStore.value!! as UiState.Loading), UiState.Loading)
-
+        assertEquals((viewModel.listStore.value as UiState.Loading), UiState.Loading)
         delayer.onComplete()
-
-        assertEquals((viewModel.listStore.value!! as UiState.Display).data, uiState)
-
+        assertEquals((viewModel.listStore.value as UiState.Error), UiState.Error())
     }
 
 }

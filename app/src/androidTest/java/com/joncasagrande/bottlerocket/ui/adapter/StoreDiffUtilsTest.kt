@@ -32,6 +32,7 @@ class StoreDiffUtilsTest {
     fun areItemsTheSame() {
         assertTrue(storeDiffUtils.areItemsTheSame(2,0))
     }
+
     @Test
     fun areDifferentItems() {
         assertFalse(storeDiffUtils.areItemsTheSame(2,1))

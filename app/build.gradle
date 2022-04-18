@@ -37,7 +37,7 @@ ext {
     koin_version = '2.0.1'
     roomVersion = '2.2.1'
     coroutine_version = '1.0.0'
-    mockito_version = '3.0.0'
+    mockito_version = '3.8.0'
     robolectric_version = '4.3'
     mockwebserver_version = "4.0.0"
 }
